@@ -1,0 +1,89 @@
+// OP1: insertMany() — insert all 3 documents from sample_documents.json
+db.products.insertMany([
+  {
+    "product_id": "E001",
+    "name": "Wireless Headphones",
+    "category": "Electronics",
+    "price": 299.99,
+    "specs": {
+      "battery_life": "30 hours",
+      "connectivity": "Bluetooth 5.0",
+      "voltage": "5V",
+      "weight": "250g"
+    },
+    "warranty": "1 year",
+    "features": ["Noise cancellation", "Water resistant", "Foldable"],
+    "reviews": [
+      {
+        "user": "Alex",
+        "rating": 5,
+        "comment": "Amazing sound quality!"
+      },
+      {
+        "user": "Sam",
+        "rating": 4,
+        "comment": "Comfortable for long use."
+      }
+    ],
+    "in_stock": true
+  },
+  {
+    "product_id": "C001",
+    "name": "Cotton T-Shirt",
+    "category": "Clothing",
+    "price": 19.99,
+    "sizes": ["S", "M", "L", "XL"],
+    "colors": ["White", "Black", "Blue"],
+    "material": "100% Cotton",
+    "care_instructions": {
+      "washing": "Machine wash cold",
+      "drying": "Tumble dry low",
+      "ironing": "Low heat"
+    },
+    "reviews": [
+      {
+        "user": "Jordan",
+        "rating": 4,
+        "comment": "Soft and comfortable."
+      }
+    ],
+    "in_stock": true
+  },
+  {
+    "product_id": "G001",
+    "name": "Organic Milk",
+    "category": "Groceries",
+    "price": 3.49,
+    "brand": "Farm Fresh",
+    "quantity": "1 liter",
+    "expiry_date": "2024-12-31",
+    "nutritional_info": {
+      "calories": 60,
+      "fat": "3.5g",
+      "protein": "3.3g",
+      "carbs": "4.6g",
+      "vitamins": ["Vitamin D", "Calcium"]
+    },
+    "organic": true,
+    "reviews": [
+      {
+        "user": "Taylor",
+        "rating": 5,
+        "comment": "Fresh and tasty!"
+      }
+    ],
+    "in_stock": true
+  }
+]);
+
+// OP2: find() — retrieve all Electronics products with price > 20000
+db.products.find({ category: "Electronics", price: { $gt: 20000 } });
+
+// OP3: find() — retrieve all Groceries expiring before 2025-01-01
+db.products.find({ category: "Groceries", expiry_date: { $lt: new Date("2025-01-01") } });
+
+// OP4: updateOne() — add a "discount_percent" field to a specific product
+db.products.updateOne({ product_id: "E001" }, { $set: { discount_percent: 10 } });
+
+// OP5: createIndex() — create an index on category field and explain why
+db.products.createIndex({ category: 1 });
